@@ -1,0 +1,28 @@
+body{
+    background-color: #262626;
+}
+
+#titleText{
+    font-size: 150px;
+    text-align: center;
+    color: white;
+    font-family: 'Just Another Hand', cursive;
+    letter-spacing: 7px;
+}
+
+#loginButton{
+    font-size: 50px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    color: #b193c2;
+    background-color: white;
+    font-family: 'Just Another Hand', cursive;
+    letter-spacing: 7px;
+}
+
+.handwritten{
+    font-size: 50px;
+    font-family: 'Just Another Hand', cursive;
+    color: white;
+}
