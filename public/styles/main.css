@@ -1,9 +1,17 @@
 body{
-    background-color: #262626;
+    background-color: #262626 !important;
 }
 
 #titleText{
     font-size: 150px;
+    text-align: center;
+    color: white;
+    font-family: 'Just Another Hand', cursive;
+    letter-spacing: 7px;
+}
+
+#dateDisplay{
+    font-size: 80px;
     text-align: center;
     color: white;
     font-family: 'Just Another Hand', cursive;
@@ -26,3 +34,48 @@ body{
     font-family: 'Just Another Hand', cursive;
     color: white;
 }
+
+.centered{
+    display: block !important;
+    margin: auto !important;
+}
+
+#stateButton{
+    background-color: #cc6ab5 !important;
+    color: black !important;
+    font-family: 'Just Another Hand', cursive;
+    font-size: 60px;
+    letter-spacing: 5px;
+}
+
+#addNightButton{
+    font-size: 40px;
+    font-family: 'Just Another Hand', cursive;
+    background-color: #dbdbdb !important;
+    color: black !important;
+    margin-bottom: 50px !important;
+}
+
+.handwrittenB{
+    font-size: 50px !important;
+    font-family: 'Just Another Hand', cursive;
+    color: black !important;
+}
+.handwrittenBSmall{
+    font-size: 25px !important;
+    font-family: 'Just Another Hand', cursive;
+    color: black !important;
+}
+
+#submitAddNight{
+    background-color:#9cffbd;
+}
+
+#cancel{
+    background-color: #ffa3a8;
+}
+
+#cardAlign {
+    display: flex;
+    justify-content: space-between;
+  }
