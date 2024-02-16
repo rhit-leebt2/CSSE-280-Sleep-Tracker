@@ -2,109 +2,154 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/bcb77a2e91.js" crossorigin="anonymous"></script>
-  <title>Your Sleep Profile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/bcb77a2e91.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <title>Your Sleep Profile</title>
 </head>
 
 <body>
-    <div id="userPage" class="container page-container">
-        <div id="dateDisplay">Thursday, February 7</div>
 
-        <button id="stateButton" type="button" class="btn btn-primary btn-lg centered">AWAKE</button>
-        <button id="addNightButton" type="button" class="btn btn-primary btn-lg centered" data-toggle="modal" data-target="#addNight">Manually Add</button>
-    
+    <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
+        <header class="bmd-layout-header">
+            <div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
+                <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
+                    <span class="sr-only">Toggle drawer</span>
+                    <i class="material-icons">menu</i>
+                </button>
+            </div>
+        </header>
+        <div id="dw-s2" class="bmd-layout-drawer bg-faded">
+            <header>
+                <a class="navbar-brand handwrittenB">My Profile</a>
+            </header>
+            <ul class="list-group">
+                <a id="menuSignOut" class="list-group-item handwrittenBSmall"><i class="material-icons">login</i>Sign Out</a>
+                <a id="menuDeleteAccount" class="list-group-item handwrittenBSmall"><i class="material-icons" style="color: red">delete</i>Delete
+                    Account</a>
+            </ul>
+        </div>
+        <main class="bmd-layout-content">
+            <div id="dateDisplay">Thursday, February 7</div>
+            <div id="userPage" class="container page-container">
 
-        <div class="modal fade" id="addNight" tabindex="-1" role="dialog" aria-labelledby="Add quote dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title handwrittenB">Add A Night</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group bmd-form-group">
-                            <label for="inputDay" class="bmd-label-floating handwrittenBSmall">Day?</label>
-                            <input type="text" class="form-control" id="inputDay">
-                        </div>
-                        <div class="form-group bmd-form-group">
-                            <label for="inputMovie" class="bmd-label-floating handwrittenBSmall">How many hours did you sleep?</label>
-                            <input type="text" class="form-control" id="inputMovie">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="cancel" type="button" class="btn btn-secondary handwrittenBSmall btn-danger" data-dismiss="modal">CANCEL</button>
-                        <button id="submitAddNight" type="button" class="btn btn-primary handwrittenBSmall btn-success" data-dismiss="modal">CREATE</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <canvas id="sleepGraph" style="width:100%;max-width:700px align-center"></canvas>
+                <button id="stateButton" type="button" class="btn btn-primary btn-lg centered">AWAKE</button>
+                <button id="addNightButton" type="button" class="btn btn-primary btn-lg centered" data-toggle="modal"
+                    data-target="#addNightDialog">Manually Add</button>
 
-        <div id="nightContainer">
-            <div class="card centered" style="width:500px; margin-top: 20px; margin-bottom: 20px; text-align: left; background-color: #dbdbdb; letter-spacing: 2px;">
-                <div class="card-body">
-                    <div id="cardAlign">
-                    <h5 class="card-title handwrittenB" >MON: 5 Hours 2 Minutes</h5>
-                    <button class="btn" data-toggle="modal" data-target="#editNight"><i class="fa-solid fa-pen-to-square" style="font-size: 25px;"></i></button>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="card centered" style="width:500px; margin-top: 20px; margin-bottom: 20px; text-align: left; background-color: #dbdbdb; letter-spacing: 2px;">
-                <div class="card-body">
-                <div id="cardAlign">
-                <h5 class="card-title handwrittenB" >SUN: 8 Hours 30 Minutes</h5>
-                <button class="btn" data-toggle="modal" data-target="#editNight"><i class="fa-solid fa-pen-to-square" style="font-size: 25px;"></i></button>
-                </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="modal fade" id="editNight" tabindex="-1" role="dialog" aria-labelledby="Add quote dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title handwrittenB">Edit This Night</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group bmd-form-group">
-                            <label for="inputDay" class="bmd-label-floating handwrittenBSmall">What Day?</label>
-                            <input type="text" class="form-control" id="inputDay">
-                        </div>
-                        <div class="form-group bmd-form-group">
-                            <label for="inputMovie" class="bmd-label-floating handwrittenBSmall">How many hours did you sleep?</label>
-                            <input type="text" class="form-control" id="inputMovie">
+                <!-- list of nights (day, duration) -->
+                <div id="nightContainer">
+
+                    <div class="card centered"
+                        style="width:500px; margin-top: 20px; margin-bottom: 20px; text-align: left; background-color: #dbdbdb; letter-spacing: 2px;">
+                        <div class="card-body">
+                            <div id="cardAlign">
+                                <h5 class="card-title handwrittenB">MON: 5 Hours 2 Minutes</h5>
+                                <button class="btn" data-toggle="modal" data-target="#editNight"><i
+                                        class="fa-solid fa-pen-to-square" style="font-size: 25px;"></i></button>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button id="cancel" type="button" class="btn btn-secondary handwrittenBSmall btn-danger" data-dismiss="modal">CANCEL</button>
-                        <button id="submitAddNight" type="button" class="btn btn-primary handwrittenBSmall btn-success" data-dismiss="modal">CREATE</button>
+                    <br>
+                    <div class="card centered"
+                        style="width:500px; margin-top: 20px; margin-bottom: 20px; text-align: left; background-color: #dbdbdb; letter-spacing: 2px;">
+                        <div class="card-body">
+                            <div id="cardAlign">
+                                <h5 class="card-title handwrittenB">SUN: 8 Hours 30 Minutes</h5>
+                                <button class="btn" data-toggle="modal" data-target="#editNight"><i
+                                        class="fa-solid fa-pen-to-square" style="font-size: 25px;"></i></button>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
-            </div>
-        </div>
-        
+        </main>
     </div>
 
-  <script src="scripts/jquery.min.js"></script>
-  <script src="scripts/popper.js"></script>
-  <script src="scripts/bootstrap-material-design.js"></script>
-  <script src="/__/firebase/7.18.0/firebase-app.js"></script>
-  <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
-  <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
-  <script src="/__/firebase/init.js"></script>
-  <script src="scripts/main.js"></script>
+    <!-- add Night dialog -->
+    <div class="modal fade" id="addNightDialog" tabindex="-1" role="dialog" aria-labelledby="Add night dialog"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title handwrittenB">Add A Night</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group bmd-form-group">
+                        <label for="inputDay" class="bmd-label-floating handwrittenBSmall">Day?</label>
+                        <input type="text" class="form-control" id="inputDay">
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="inputDuration" class="bmd-label-floating handwrittenBSmall">How long did you
+                            sleep?</label>
+                        <input type="text" class="form-control" id="inputDuration">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel" type="button" class="btn btn-secondary handwrittenBSmall btn-danger"
+                        data-dismiss="modal">CANCEL</button>
+                    <button id="submitAddNight" type="button" class="btn btn-primary handwrittenBSmall btn-success"
+                        data-dismiss="modal">CREATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script>
-    $("body").bootstrapMaterialDesign();
-  </script>
+    <!-- edit Night dialog -->
+    <div class="modal fade" id="editNight" tabindex="-1" role="dialog" aria-labelledby="Add quote dialog"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title handwrittenB">Edit This Night</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group bmd-form-group">
+                        <label for="inputDay" class="bmd-label-floating handwrittenBSmall">What Day?</label>
+                        <input type="date" class="form-control" id="inputDay">
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="inputDuration" class="bmd-label-floating handwrittenBSmall">How many hours did you
+                            sleep?</label>
+                        <input type="text" class="form-control" id="inputDuration">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel" type="button" class="btn btn-secondary handwrittenBSmall btn-danger"
+                        data-dismiss="modal">CANCEL</button>
+                    <button id="submitEditNight" type="button" class="btn btn-primary handwrittenBSmall btn-success"
+                        data-dismiss="modal">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popper.js"></script>
+    <script src="scripts/bootstrap-material-design.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="scripts/main.js"></script>
+
+    <script>
+        $("body").bootstrapMaterialDesign();
+    </script>
 </body>
 
 </html>

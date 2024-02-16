@@ -7,7 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="styles/main.css">
   <title>Sleep Tracker</title>
 </head>
@@ -15,20 +16,16 @@
 <body>
   <div id="loginPage" class="container page-container">
     <div id="titleText">Sleep Tracker</div>
-    <a href="userPage.html">Website</a>
 
-    <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1" class="">Email address</label>
-          <input type="email" class="form-control-sm handwritten centered" id="inputUsername" aria-describedby="emailHelp" placeholder="Username">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control-sm handwritten centered" id="inputPassword" placeholder="Password">
-        </div>
-        <button id="loginButton" type="submit" class="btn btn-primary mx-auto">LOGIN</button>
-    </form>
-   
+    <div class="form-group centered">
+      <input type="email" class="form-control handwrittenB centered" id="inputEmail" aria-describedby="emailHelp"
+        placeholder="Email">
+    </div>
+    <div class="form-group centered">
+      <input type="password" class="form-control handwrittenB centered" id="inputPassword" placeholder="Password">
+    </div>
+    <button id="loginButton" type="submit" class="btn btn-primary mx-auto">LOGIN</button>
+
   </div>
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
@@ -37,6 +34,7 @@
   <script src="/__/firebase/7.18.0/firebase-app.js"></script>
   <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
   <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
   <script src="/__/firebase/init.js"></script>
   <script src="scripts/main.js"></script>
 </body>

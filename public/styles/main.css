@@ -2,6 +2,14 @@ body{
     background-color: #262626 !important;
 }
 
+/* for nav bar thingy on userPage */
+.bmd-layout-content {
+    height: 100vh;
+}
+/* .list-group-item :first-child {
+    margin-right: .75rem;
+} */
+
 #titleText{
     font-size: 150px;
     text-align: center;
@@ -23,11 +31,17 @@ body{
     display: block;
     margin: auto;
     text-align: center;
-    color: #b193c2;
+    color: #B39DDB;
     background-color: white;
     font-family: 'Just Another Hand', cursive;
-    letter-spacing: 7px;
+    letter-spacing: 5px;
+    font-weight: bold;
 }
+
+/* #inputEmail,
+#inputPassword {
+    
+} */
 
 .handwritten{
     font-size: 50px;
