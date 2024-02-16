@@ -7,7 +7,7 @@ rhit.FB_KEY_LAST_TOUCHED = "lastTouched";
 rhit.FB_KEY_AUTHOR = "author";
 rhit.FbNightsManager = null;
 rhit.FbAuthManager = null;
-
+const sleepHours = [];
 
 rhit.Night = class {
     constructor(id, day, duration) {
@@ -27,6 +27,8 @@ function htmlToElement(html) {
 
 rhit.UserPageController = class {
     constructor() {
+		const date = new Date();
+		document.getElementById("dateDisplay").innerHTML = date.toDateString();
         console.log("UserPageController initialized");
         // document.querySelector("#menuShowAllQuotes").addEventListener("click", (event) => {
         // 	window.location.href = "/list.html";
@@ -57,6 +59,31 @@ rhit.UserPageController = class {
             document.querySelector("#inputDuration").focus();
         });
 
+		let timer;
+		let startTime;
+		let isTimerRunning = false;
+
+		document.querySelector("#stateButton").addEventListener('click', function() {
+			if (isTimerRunning) {
+			  document.getElementById("stateButton").innerHTML = "AWAKE";
+			  document.getElementById("stateButton").style.backgroundColor = "#cc6ab5";
+			  clearInterval(timer);
+			  isTimerRunning = false;
+			  
+			  const elapsedTime = new Date().getTime() - startTime;
+			  const minutes = Math.floor(elapsedTime / 60000);
+			  
+			  // Display the elapsed time
+			  console.log("minutes:" + minutes);
+			  rhit.FbNightsManager.add(Date(), minutes);
+			} else {
+			  // Start the timer
+			  startTime = new Date().getTime();
+			  isTimerRunning = true;
+			  document.getElementById("stateButton").innerHTML = "ASLEEP";
+			}
+		  });
+
         // Edit Night
         document.querySelector("#submitEditNight").addEventListener("click", (event) => {
 			const day = document.querySelector("#inputEditDay").value;
@@ -83,11 +110,14 @@ rhit.UserPageController = class {
     }
 
     _createCard(night) {
+		var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+		const daystring = new Date(night.day);
+		const adjustedDayString = new Date(daystring.getTime() + Math.abs(daystring.getTimezoneOffset()*60000));
         return htmlToElement(`<div class="card centered"
         style="width:500px; margin-top: 20px; margin-bottom: 20px; text-align: left; background-color: #dbdbdb; letter-spacing: 2px;">
         <div class="card-body">
             <div id="cardAlign">
-                <h5 class="card-title handwrittenB">${night.day}: ${night.duration}</h5>
+                <h5 class="card-title handwrittenB">${weekday[adjustedDayString.getDay()]}: ${Math.floor(night.duration/60)} Hrs, ${night.duration%60} Mins </h5>
                 <button class="btn" data-toggle="modal" data-target="#editNightDialog"><i
                         class="fa-solid fa-pen-to-square" style="font-size: 25px;"></i></button>
             </div>
@@ -99,23 +129,72 @@ rhit.UserPageController = class {
         console.log("update list now :)");
         console.log(`Num nights = ${rhit.FbNightsManager.length}`);
         console.log(`example night = `, rhit.FbNightsManager.getNightAtIndex(0));
-
+		const sleepHours = [];
         //Make a new quoteListContainer
         const newList = htmlToElement('<div id="nightContainer"></div>');
+		const curDate = new Date();
+		const curDay = curDate.getDay();
+		console.log(curDay);
         //fill the quotelistcontainer with quote cards using aloop
         for (let i = 0; i < rhit.FbNightsManager.length; i++) {
             const nt = rhit.FbNightsManager.getNightAtIndex(i);
             const newCard = this._createCard(nt);
 
+			
             // newCard.onclick = (event) => {
             //     // console.log(`you clicked on ${mq.id}`);
             //     // rhit.storage.setMovieQuoteId(mq.id);
             //     window.location.href = `/moviequote.html?id=${mq.id}`;
             // };
 
-
+			const daystring = new Date(nt.day);
+			const adjustedDayString = new Date(daystring.getTime() + Math.abs(daystring.getTimezoneOffset()*60000));
+			console.log(daystring.getDate());
             newList.appendChild(newCard);
+			if((sleepHours[adjustedDayString.getDay()] == null) && (curDate.getDate() - adjustedDayString.getDate() <= curDay)){
+				sleepHours[adjustedDayString.getDay()] = nt.duration/60;
+			}
         }
+        const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+        new Chart("sleepGraph", {
+            type: "line",
+            data: {
+                labels: daysOfWeek,
+                datasets: [{
+                    //   backgroundColor:"#B39DDB",
+                    borderColor: "#B39DDB",
+                    data: sleepHours,
+                    tension: 0.1,
+                    fill: false,
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: 'white'
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "#808080"
+                        },
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: 'white'
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "#808080"
+                        },
+                    }]
+                },
+                legend: {
+                    display: false,
+                }
+            }
+        });
 
         //Remove the old quoteLIstContainer
         const oldList = document.querySelector("#nightContainer");
@@ -302,47 +381,7 @@ rhit.initializePage = function () {
         const uid = urlParams.get("uid");
         rhit.FbNightsManager = new rhit.FbNightsManager(uid);
         new rhit.UserPageController();
-        const sleepHours = [3, 5, 2, 6, 8];
-        const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-        new Chart("sleepGraph", {
-            type: "line",
-            data: {
-                labels: daysOfWeek,
-                datasets: [{
-                    //   backgroundColor:"#B39DDB",
-                    borderColor: "#B39DDB",
-                    data: sleepHours,
-                    tension: 0.1,
-                    fill: false,
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            fontColor: 'white'
-                        },
-                        gridLines: {
-                            display: true,
-                            color: "#808080"
-                        },
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            fontColor: 'white'
-                        },
-                        gridLines: {
-                            display: true,
-                            color: "#808080"
-                        },
-                    }]
-                },
-                legend: {
-                    display: false,
-                }
-            }
-        });
+		
     }
 
     if (document.querySelector("#loginPage")) {
