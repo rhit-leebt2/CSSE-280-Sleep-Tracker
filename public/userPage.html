@@ -87,8 +87,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group bmd-form-group">
-                        <label for="inputDay" class="bmd-label-floating handwrittenBSmall">Day?</label>
-                        <input type="text" class="form-control" id="inputDay">
+                        <label for="inputDay" class="bmd-label-floating handwrittenBSmall">What Day?</label>
+                        <input type="date" class="form-control" id="inputDay">
                     </div>
                     <div class="form-group bmd-form-group">
                         <label for="inputDuration" class="bmd-label-floating handwrittenBSmall">How long did you
@@ -107,7 +107,7 @@
     </div>
 
     <!-- edit Night dialog -->
-    <div class="modal fade" id="editNight" tabindex="-1" role="dialog" aria-labelledby="Add quote dialog"
+    <div class="modal fade" id="editNightDialog" tabindex="-1" role="dialog" aria-labelledby="Add quote dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -116,17 +116,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group bmd-form-group">
-                        <label for="inputDay" class="bmd-label-floating handwrittenBSmall">What Day?</label>
-                        <input type="date" class="form-control" id="inputDay">
+                        <label for="inputEditDay" class="bmd-label-floating handwrittenBSmall">What Day?</label>
+                        <input type="date" class="form-control" id="inputEditDay">
                     </div>
                     <div class="form-group bmd-form-group">
-                        <label for="inputDuration" class="bmd-label-floating handwrittenBSmall">How many hours did you
+                        <label for="inputEditDuration" class="bmd-label-floating handwrittenBSmall">How long did you
                             sleep?</label>
-                        <input type="text" class="form-control" id="inputDuration">
+                        <input type="text" class="form-control" id="inputEditDuration">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="cancel" type="button" class="btn btn-secondary handwrittenBSmall btn-danger"
+                    <button id="cancelEdit" type="button" class="btn btn-secondary handwrittenBSmall btn-danger"
                         data-dismiss="modal">CANCEL</button>
                     <button id="submitEditNight" type="button" class="btn btn-primary handwrittenBSmall btn-success"
                         data-dismiss="modal">SAVE</button>

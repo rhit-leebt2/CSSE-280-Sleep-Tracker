@@ -38,14 +38,13 @@ rhit.UserPageController = class {
         document.querySelector("#menuSignOut").addEventListener("click", (event) => {
             rhit.FbAuthManager.signOut();
         });
-        // document.querySelector("#submitAddQuote").onclick = (event) => {
-        // };
+        
+        // Add Night
         document.querySelector("#submitAddNight").addEventListener("click", (event) => {
             const day = document.querySelector("#inputDay").value;
             const duration = document.querySelector("#inputDuration").value;
             rhit.FbNightsManager.add(day, duration);
         });
-
         $('#addNightDialog').on('show.bs.modal', (event) => {
             // pre animation
             document.querySelector("#inputDay").value = "";
@@ -58,6 +57,26 @@ rhit.UserPageController = class {
             document.querySelector("#inputDuration").focus();
         });
 
+        // Edit Night
+        document.querySelector("#submitEditNight").addEventListener("click", (event) => {
+			const day = document.querySelector("#inputEditDay").value;
+			const duration = document.querySelector("#inputEditDuration").value;
+			rhit.FbSinglePhotoManager.update(quote, movie);
+		});
+        $('#editNightDialog').on('show.bs.modal', (event) => {
+			// pre animation
+			document.querySelector("#inputEditDay").value = rhit.FbSinglePhotoManager.quote;
+			document.querySelector("#inputEditDuration").value = rhit.FbSinglePhotoManager.movie;
+
+		});
+		$('#editNightDialog').on('shown.bs.modal', (event) => {
+			// post animation
+			console.log("dialog is now visible");
+			document.querySelector("#inputEditDuration").focus();
+		});
+
+
+
         // start listening
         rhit.FbNightsManager.beginListening(this.updateList.bind(this));
 
@@ -69,12 +88,11 @@ rhit.UserPageController = class {
         <div class="card-body">
             <div id="cardAlign">
                 <h5 class="card-title handwrittenB">${night.day}: ${night.duration}</h5>
-                <button class="btn" data-toggle="modal" data-target="#editNight"><i
+                <button class="btn" data-toggle="modal" data-target="#editNightDialog"><i
                         class="fa-solid fa-pen-to-square" style="font-size: 25px;"></i></button>
             </div>
         </div>
-    </div>
-    <br>`);
+    </div>`);
     }
 
     updateList() {
@@ -133,8 +151,24 @@ rhit.FbNightsManager = class {
                 console.error("Error adding document: ", error);
             });
     }
+
+    update(nightId, day, duration) {
+        this._refSingle = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES).doc(nightId);
+		this._refSingle.update({
+			[rhit.FB_KEY_DAY]: day,
+			[rhit.FB_KEY_DURATION]: duration,
+			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+		})
+			.then(() => {
+				console.log("Document successfully updated!");
+			})
+			.catch((error) => {
+				// The document probably doesn't exist.
+				console.error("Error updating document: ", error);
+			});
+	}
     beginListening(changeListener) {
-        let query = this._ref.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc").limit(50);
+        let query = this._ref.orderBy(rhit.FB_KEY_DAY, "desc").limit(49);
         if (this._uid) {
             query = query.where(rhit.FB_KEY_AUTHOR, "==", this._uid);
         }
