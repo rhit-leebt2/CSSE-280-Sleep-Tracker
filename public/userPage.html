@@ -35,8 +35,9 @@
             </header>
             <ul class="list-group">
                 <a id="menuSignOut" class="list-group-item handwrittenBSmall"><i class="material-icons">login</i>Sign Out</a>
-                <a id="menuDeleteAccount" class="list-group-item handwrittenBSmall"><i class="material-icons" style="color: red">delete</i>Delete
+                <a id="delAccount" class="list-group-item handwrittenBSmall" data-toggle="modal" href="#deleteAccountDialogue"><i class="material-icons" style="color: red">delete</i>Delete
                     Account</a>
+                    
             </ul>
         </div>
         <main class="bmd-layout-content">
@@ -136,6 +137,23 @@
                         data-dismiss="modal">CANCEL</button>
                     <button id="submitEditNight" type="button" class="btn btn-primary handwrittenBSmall btn-success"
                         data-dismiss="modal">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteAccountDialogue" tabindex="-1" role="dialog" aria-labelledby="Delete account dialog"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title handwrittenB">Are You Sure You Want to Delete Your Account</h5>
+                </div>
+                <div class="modal-footer">
+                    <button id="" type="button" class="btn btn-secondary handwrittenBSmall btn-success"
+                        data-dismiss="modal">CANCEL</button>
+                    <button id="menuDeleteAccount" type="button" class="btn btn-secondary handwrittenBSmall btn-danger"
+                        data-dismiss="modal">DELETE</button>
                 </div>
             </div>
         </div>

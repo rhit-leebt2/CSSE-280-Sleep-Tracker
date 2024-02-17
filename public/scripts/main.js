@@ -42,6 +42,9 @@ rhit.UserPageController = class {
         document.querySelector("#menuSignOut").addEventListener("click", (event) => {
             rhit.FbAuthManager.signOut();
         });
+		document.querySelector("#menuDeleteAccount").addEventListener("click", (event) => {
+			rhit.FbAuthManager.deleteAccount();
+		})
 
         // Add Night
         document.querySelector("#submitAddNight").addEventListener("click", (event) => {
@@ -117,7 +120,7 @@ rhit.UserPageController = class {
         return htmlToElement(`<div class="card">
         <div class="card-body">
             <div id="cardAlign">
-                <h5 class="card-title handwrittenB">${weekday[adjustedDayString.getDay()]}: ${Math.floor(night.duration / 60)} Hrs, ${night.duration % 60} Mins </h5>
+                <h5 class="card-title handwrittenB">${weekday[adjustedDayString.getDay()]}, ${daystring.getMonth() + 1}/${adjustedDayString.getDate()}: ${Math.floor(night.duration / 60)} Hrs, ${night.duration % 60} Mins </h5>
                 <button id="editButton" class="btn" data-toggle="modal" data-target="#editNightDialog"><i
                         class="fa-solid fa-pen-to-square" style="font-size: 25px;"></i></button>
             </div>
@@ -343,6 +346,18 @@ rhit.LoginPageController = class {
         document.querySelector("#loginButton").onclick = (event) => {
             rhit.FbAuthManager.signIn();
         };
+
+		document.querySelector("#accountButton").onclick = (event) => {
+			const inputEmailEl = document.querySelector("#inputEmail");
+        	const inputPasswordEl = document.querySelector("#inputPassword");
+			console.log(`Create account for email: ${inputEmailEl.value} password: ${inputPasswordEl.value}`);
+			firebase.auth().createUserWithEmailAndPassword(inputEmailEl.value,inputPasswordEl.value).catch(function(error){
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log("Create account error", errorCode, errorMessage);
+				alert(errorMessage);
+			}); 
+		};
         // rhit.startFirebaseUI();
     }
 }
@@ -384,6 +399,7 @@ rhit.FbAuthManager = class {
             changeListener();
         });
     }
+	
     signIn() {
         const inputEmailEl = document.querySelector("#inputEmail");
         const inputPasswordEl = document.querySelector("#inputPassword");
@@ -400,6 +416,9 @@ rhit.FbAuthManager = class {
             console.log("Sign out error");
         });
     }
+	deleteAccount() {
+		firebase.auth().currentUser.delete();
+	}
     get isSignedIn() {
         return !!this._user;
     }

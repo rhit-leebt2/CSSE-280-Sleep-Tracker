@@ -43,6 +43,18 @@ label {
     font-weight: bold;
 }
 
+#accountButton {
+    font-size: 50px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    color: #B39DDB;
+    background-color: white;
+    font-family: 'Just Another Hand', cursive;
+    letter-spacing: 5px;
+    font-weight: bold;
+}
+
 /* #inputEmail,
 #inputPassword {
     
@@ -92,6 +104,9 @@ label {
 }
 
 #cancel {
+    background-color: #ffa3a8;
+}
+#menuDeleteAccount {
     background-color: #ffa3a8;
 }
 
