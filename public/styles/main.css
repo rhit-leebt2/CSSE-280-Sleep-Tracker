@@ -1,16 +1,21 @@
-body{
+body {
     background-color: #262626 !important;
+}
+
+label {
+    margin: 2px 0px !important;
 }
 
 /* for nav bar thingy on userPage */
 .bmd-layout-content {
     height: 100vh;
 }
+
 /* .list-group-item :first-child {
     margin-right: .75rem;
 } */
 
-#titleText{
+#titleText {
     font-size: 150px;
     text-align: center;
     color: white;
@@ -18,7 +23,7 @@ body{
     letter-spacing: 7px;
 }
 
-#dateDisplay{
+#dateDisplay {
     font-size: 80px;
     text-align: center;
     color: white;
@@ -26,7 +31,7 @@ body{
     letter-spacing: 7px;
 }
 
-#loginButton{
+#loginButton {
     font-size: 50px;
     display: block;
     margin: auto;
@@ -43,18 +48,18 @@ body{
     
 } */
 
-.handwritten{
+.handwritten {
     font-size: 50px;
     font-family: 'Just Another Hand', cursive;
     color: white;
 }
 
-.centered{
+.centered {
     display: block !important;
     margin: auto !important;
 }
 
-#stateButton{
+#stateButton {
     background-color: #cc6ab5 !important;
     color: black !important;
     font-family: 'Just Another Hand', cursive;
@@ -62,7 +67,7 @@ body{
     letter-spacing: 5px;
 }
 
-#addNightButton{
+#addNightButton {
     font-size: 40px;
     font-family: 'Just Another Hand', cursive;
     background-color: #dbdbdb !important;
@@ -70,26 +75,38 @@ body{
     margin-bottom: 50px !important;
 }
 
-.handwrittenB{
+.handwrittenB {
     font-size: 50px !important;
     font-family: 'Just Another Hand', cursive;
     color: black !important;
 }
-.handwrittenBSmall{
+
+.handwrittenBSmall {
     font-size: 25px !important;
     font-family: 'Just Another Hand', cursive;
     color: black !important;
 }
 
-#submitAddNight{
-    background-color:#9cffbd;
+#submitAddNight {
+    background-color: #9cffbd;
 }
 
-#cancel{
+#cancel {
     background-color: #ffa3a8;
 }
 
 #cardAlign {
     display: flex;
     justify-content: space-between;
-  }
+}
+
+#card-body {
+    margin: 10px 0;
+}
+
+.card {
+    margin: 10px 0;
+}
+
+
+/* style="width:500px; margin-top: 20px; margin-bottom: 20px; text-align: left; background-color: #dbdbdb; letter-spacing: 2px;" */
