@@ -154,6 +154,9 @@ rhit.UserPageController = class {
 			if((sleepHours[adjustedDayString.getDay()] == null) && (curDate.getDate() - adjustedDayString.getDate() <= curDay)){
 				sleepHours[adjustedDayString.getDay()] = nt.duration/60;
 			}
+			else if((sleepHours[adjustedDayString.getDay()] != null) && (curDate.getDate() - adjustedDayString.getDate() <= curDay)){
+				sleepHours[adjustedDayString.getDay()] = sleepHours[adjustedDayString.getDay()] + nt.duration/60;
+			}
         }
         const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
         new Chart("sleepGraph", {
